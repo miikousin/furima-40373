@@ -38,7 +38,7 @@ Things you may want to cover:
 ### Association
 
 - has_many :items
-- has_many :orders
+- has_many :purchases
 
 ## items テーブル
 
@@ -56,34 +56,32 @@ Things you may want to cover:
 ### Association
 
 - belongs_to :user
-- has_one :order_item
+- has_one :purchase
 
 ## orders テーブル
 
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
 | post_code    | string     | null: false                    |
-| prefectures  | string     | null: false                    | 
+| region_id    | integer    | null: false                    | 
 | city         | string     | null: false                    |
 | house_number | string     | null: false                    |
 | building_name| string     |                                | 
 | tel          | string     | null: false                    |
-| item         | references | null: false, foreign_key: true |
-| user         | references | null: false, foreign_key: true | 
+| purchase     | references | null: false, foreign_key: true | 
 ### Association
 
-- belongs_to :user
-- has_many :order_items
+- belongs_to :purchase
 
-## order_items テーブル
+## purchases テーブル（購入履歴）
 
 | Column   | Type       | Options                        |
 | -------- | ---------- | ------------------------------ |
-| order    | references | null: false, foreign_key: true |
+| user     | references | null: false, foreign_key: true |
 | item     | references | null: false, foreign_key: true |
-| quantity | integer    | null: false                    |
-| price    | integer    | null: false                    |
-## Association
 
+### Association
+
+- belongs_to :user
 - belongs_to :item
-- belongs_to :order
+- has_one :order
