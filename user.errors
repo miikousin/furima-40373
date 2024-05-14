@@ -1,0 +1,15 @@
+
+[1mFrom:[0m /home/koumama/projects/furima-40373/spec/models/user_spec.rb:31 :
+
+    [1;34m26[0m:     [32mend[0m
+    [1;34m27[0m:     it [31m[1;31m'[0m[31mpasswordとpassword_confirmationが不一致では登録できない[1;31m'[0m[31m[0m [32mdo[0m
+    [1;34m28[0m:       @user.password = [31m[1;31m'[0m[31m111111[1;31m'[0m[31m[0m
+    [1;34m29[0m:       @user.password_confirmation = [31m[1;31m'[0m[31m222222[1;31m'[0m[31m[0m
+    [1;34m30[0m:       @user.valid?
+ => [1;34m31[0m:       binding.pry
+    [1;34m32[0m:       
+    [1;34m33[0m:     [32mend[0m
+    [1;34m34[0m:     it [31m[1;31m'[0m[31mpasswordが5文字以下では登録できない[1;31m'[0m[31m[0m [32mdo[0m
+    [1;34m35[0m:     [32mend[0m
+    [1;34m36[0m:     it [31m[1;31m'[0m[31m重複したemailが存在すると登録できない[1;31m'[0m[31m[0m [32mdo[0m
+
