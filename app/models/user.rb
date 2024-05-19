@@ -11,3 +11,4 @@ class User < ApplicationRecord
          validates :birth_day, presence: true
          validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i, message: "は英数字含めて設定してください。" }
 end
+
