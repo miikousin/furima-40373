@@ -41,9 +41,13 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price は300円以上9,999,999円以下で入力してください")
       end
       it 'priceが9,999,999円以上では出品できない' do
-        @item.price = 3,000,000
+        @item.price = 10,000,000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price は300円以上9,999,999円以下で入力してください")
+      end
+      it 'priceが半角数値以外では出品できない' do
+        @item.price = '百'
+        expect(@item).not_to be_valid
       end
       it 'imageが空では出品できない' do
         @item.image = nil
