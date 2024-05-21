@@ -8,5 +8,9 @@ FactoryBot.define do
     condition_id       { Faker::Number.within(range: 2..7)}
     region_id          { Faker::Number.within(range: 2..48)}
     number_of_day_id   { Faker::Number.within(range: 2..4)}
+
+    after(:build) do |item|
+      item.image.attach(io: File.open('public/images/test_image2.png'), filename: 'test_image2.png')
+    end
   end
 end
