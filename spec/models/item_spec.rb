@@ -20,6 +20,11 @@ RSpec.describe Item, type: :model do
       end
     end
     context '商品出品ができないとき' do
+      it 'ユーザー登録していないと出品できない' do
+        @item.user_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
+      end
       it 'nameが空では出品できない' do
         @item.name = ''
         @item.valid?
@@ -55,27 +60,27 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
       it 'category_idが空では出品できない' do
-        @item.category_id = ''
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
       it 'postage_idが空では出品できない' do
-        @item.postage_id = ''
+        @item.postage_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Postage can't be blank")
       end
       it 'condition_idが空では出品できない' do
-        @item.condition_id = ''
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
       it 'region_idが空では出品できない' do
-        @item.region_id = ''
+        @item.region_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Region can't be blank")
       end
       it 'number_of_day_idが空では出品できない' do
-        @item.number_of_day_id = ''
+        @item.number_of_day_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Number of day can't be blank")
       end

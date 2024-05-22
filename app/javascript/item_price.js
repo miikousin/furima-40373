@@ -3,7 +3,7 @@ window.addEventListener("turbo:load", () => {
 function calculateFeeAndProfit() {
   const itemPrice = document.getElementById("item-price").value;//販売価格の入力値を取得、itemPriceに代入
   const fee = Math.floor(itemPrice / 10);//手数料。itemPriceの数値の10％を小数点以下を切り捨(Math.floor)、feeに代入
-  const profit = itemPrice - fee;//販売利益の計算
+  const profit = Math.floor(itemPrice - fee);//販売利益の計算
 
   const addTaxDom = document.getElementById("add-tax-price"); //販売手数料を表示する場所を取得
   addTaxDom.innerHTML = fee; //販売手数料を表示する場所のHTMLをfeeで更新する
