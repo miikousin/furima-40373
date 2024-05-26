@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new] #newアクションの前にログインしてるか確認する
+  
   def index
     @items = Item.all.order("created_at DESC")
   end
