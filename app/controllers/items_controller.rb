@@ -6,11 +6,17 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    @item = Item.find(params[:id])#データが入った状態で@itemに代入。edit.htmlで使える。
     if @item.user_id == current_user.id #出品者とログインしているユーザーが同じとき
     else
       redirect_to root_path
     end
   end  
+
+  def update
+    item = Item.find(params[:id])
+    item.update(item_params)
+  end
 
   def show
     @item = Item.find(params[:id])#show.html.erbで使える
