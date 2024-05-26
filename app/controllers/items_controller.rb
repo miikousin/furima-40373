@@ -1,10 +1,19 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new] #newアクションの前にログインしてるか確認する
+  
   def index
     @items = Item.all.order("created_at DESC")
   end
-  
+
+  def edit
+    if @item.user_id == current_user.id #出品者とログインしているユーザーが同じとき
+    else
+      redirect_to root_path
+    end
+  end  
+
   def show
+    @item = Item.find(params[:id])#show.html.erbで使える
   end
 
   def new
