@@ -1,12 +1,12 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new] #newアクションの前にログインしてるか確認する
-  
+  before_action :authenticate_user!, only: [:new, :edit, :update]#onlyの前にログインしてるか確認。していなければログインページへリダイレクト
+  before_action :set_item, only: [:edit, :update]#onlyの前に@item = Item.find(params[:id])を実行することを設定した
+
   def index
     @items = Item.all.order("created_at DESC")
   end
 
   def edit
-    @item = Item.find(params[:id])#データが入った状態で@itemに代入。edit.htmlで使える。
     if @item.user_id == current_user.id #出品者とログインしているユーザーが同じとき
     else
       redirect_to root_path
@@ -14,7 +14,6 @@ class ItemsController < ApplicationController
   end  
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to item_path(@item.id)
     else 
@@ -43,5 +42,7 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:name, :price, :items_description, :category_id, :condition_id, :postage_id, :region_id, :number_of_day_id, :image)
   end  
-  
+  def set_item
+    @item = Item.find(params[:id])
+  end
 end
