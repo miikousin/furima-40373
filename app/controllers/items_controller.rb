@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update]#onlyの前にログインしてるか確認。していなければログインページへリダイレクト
-  before_action :set_item, only: [:edit, :update]#onlyの前に@item = Item.find(params[:id])を実行することを設定した
+  before_action :set_item, only: [:edit, :update, :show]#onlyの前に@item = Item.find(params[:id])を実行することを設定した
 
   def index
     @items = Item.all.order("created_at DESC")
@@ -22,7 +22,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])#show.html.erbで使える
   end
 
   def new
