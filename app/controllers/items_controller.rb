@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new] #newアクションの前にログインしてるか確認する
-  
+  before_action :authenticate_user!, only: [:new, :edit, :update]#onlyの前にログインしてるか確認。していなければログインページへリダイレクト
+  before_action :set_item, only: [:edit, :update, :show]#onlyの前に@item = Item.find(params[:id])を実行することを設定した
+
   def index
     @items = Item.all.order("created_at DESC")
   end
@@ -12,8 +13,15 @@ class ItemsController < ApplicationController
     end
   end  
 
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(@item.id)
+    else 
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def show
-    @item = Item.find(params[:id])#show.html.erbで使える
   end
 
   def new
@@ -33,5 +41,7 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:name, :price, :items_description, :category_id, :condition_id, :postage_id, :region_id, :number_of_day_id, :image)
   end  
-  
+  def set_item
+    @item = Item.find(params[:id])
+  end
 end
