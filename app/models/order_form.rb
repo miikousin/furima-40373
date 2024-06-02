@@ -11,6 +11,7 @@ class OrderForm
     validates :tel, format: { with: /\A\d{10,11}\z/, message: "はハイフンなし10桁か11桁で入力して下さい" }
     validates :item_id
     validates :user_id
+    
   end
 
   def save
