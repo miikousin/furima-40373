@@ -1,5 +1,8 @@
 FactoryBot.define do
   factory :item do
+    association :user
+    # purchaseとorderはitemが作成された後に作成されるので、ここでは関連づけを行わない
+    
     name               { Faker::Commerce.product_name }
     price              { Faker::Number.within(range: 300..9999999) }
     items_description  { Faker::Lorem.sentence }
