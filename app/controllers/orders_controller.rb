@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_item
+  before_action :set_item, only: [:index, :create]
   before_action :redirect_if_own_item#自分が出品した商品の場合の処理
 
   def index
@@ -9,6 +9,7 @@ class OrdersController < ApplicationController
   
   def create
     @order_form = OrderForm.new(order_params)
+    @user = User.find(@item.user_id)
     if @order_form.valid?
       @order_form.save
       redirect_to root_path
@@ -19,11 +20,11 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order_form).permit(:post_code, :region_id, :city, :house_number, :building_name, :tel, :token).merge(user_id: current_user.id, item_id: params[:item_id])
+    params.require(:order_form).permit(:post_code, :region_id, :city, :house_number, :building_name, :tel).merge(user_id: current_user.id, item_id: params[:item_id])
   end
 
   def set_item
-    @item = Item.find(params[:item_id])#既存の情報を取得する
+    @item = Item.find(params[:item_id])#既存の情報を取得する。ネストしているので[:item_id]とする。
   end
 
   def redirect_if_own_item

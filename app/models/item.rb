@@ -7,9 +7,9 @@ class Item < ApplicationRecord
   belongs_to :number_of_day
   belongs_to :category
   
+  #モデル間のアソシエーション
   belongs_to :user
   has_one :purchase
-  has_one :order
   has_one_attached :image
 
   validates :name, :items_description, :image, presence: true

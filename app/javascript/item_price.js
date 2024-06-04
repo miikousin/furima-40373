@@ -11,5 +11,9 @@ function calculateFeeAndProfit() {
   const profitDom = document.getElementById("profit");//販売利益を表示する場所を取得
   profitDom.innerHTML = profit;//販売利益のHTMLをprofitで更新
 }
-document.getElementById("item-price").addEventListener("input", calculateFeeAndProfit);
+const itemPriceElement = document.getElementById("item-price");
+
+  if (itemPriceElement != null) {
+    itemPriceElement.addEventListener("input", calculateFeeAndProfit);
+  }
 })
