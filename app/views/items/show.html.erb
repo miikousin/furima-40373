@@ -8,10 +8,11 @@
     <div class="item-img-content">
       <%= image_tag @item.image.variant(resize: '500x500'), class:"item-box-img" %>
       
-      
+      <% if @item.purchase.present? %>
       <div class="sold-out">
         <span>Sold Out!!</span>
       </div>
+      <% end %>
 
     </div>
     <div class="item-price-box">
@@ -28,10 +29,10 @@
         <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
         <p class="or-text">or</p>
         <%= link_to "削除", item_path(@item), data: {turbo_method: :delete}, class:"item-destroy" %>
-      <% else %><%# ログイン状態かつ、ログインユーザーと出品者が違う%>
-        
+      <% end %>
+      <%#売れていない、かつログインユーザーと出品者が違う%>
+      <% unless @item.purchase.present? || current_user == @item.user %>
         <%= link_to "購入画面に進む", item_orders_path(@item), data: { turbo: false }, class:"item-red-btn"%>
-      
       <% end %>
     <% end %>
     

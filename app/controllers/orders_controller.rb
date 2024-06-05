@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
   before_action :redirect_if_own_item#自分が出品した商品の場合の処理
+  before_action :redirect_if_not_permitted, only: [:create]
 
   def index
     @order_form = OrderForm.new#フォームオブジェクトのインスタンスを生成し、インスタンス変数に代入する
@@ -29,6 +30,13 @@ class OrdersController < ApplicationController
 
   def redirect_if_own_item
     if current_user == @item.user
+      redirect_to root_path
+    end
+  end
+
+  def redirect_if_not_permitted
+    @item = Item.find(params[:item_id])
+    if current_user == @item.user || @item.purchase.present?
       redirect_to root_path
     end
   end
