@@ -1,7 +1,7 @@
 class OrderForm
   include ActiveModel::Model
   #orderテーブル、purchasesテーブルのカラムを書く
-  attr_accessor :post_code, :region_id, :city, :house_number, :building_name, :tel, :item_id, :user_id
+  attr_accessor :post_code, :region_id, :city, :house_number, :building_name, :tel, :item_id, :user_id, :token
   #purchase_idはorderが保存されてから生成されるので不要
 
   with_options presence: true do
@@ -12,6 +12,8 @@ class OrderForm
     validates :tel, format: { with: /\A\d{10,11}\z/, message: "はハイフンなし10桁か11桁で入力して下さい" }
     validates :item_id
     validates :user_id
+    validates :token
+    
   end
     
   def save  #attr_accessorの値をそれぞれのテーブルに分ける

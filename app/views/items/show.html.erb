@@ -24,19 +24,16 @@
       </span>
     </div>
 
-    <% if user_signed_in? %><%# ログインしているとき%>
+    <% if user_signed_in? && @item.purchase.nil?%><%# ログインしているかつ売れていないとき%>
       <% if current_user.id == @item.user_id %><%# ログインユーザーと出品者が同じとき%>
         <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
         <p class="or-text">or</p>
         <%= link_to "削除", item_path(@item), data: {turbo_method: :delete}, class:"item-destroy" %>
-      <% end %>
-      <%#売れていない、かつログインユーザーと出品者が違う%>
-      <% unless @item.purchase.present? || current_user == @item.user %>
+      <% else %><%#売れていない、かつログインユーザーと出品者が違う%>
         <%= link_to "購入画面に進む", item_orders_path(@item), data: { turbo: false }, class:"item-red-btn"%>
       <% end %>
     <% end %>
     
-  
     <div class="item-explain-box">
       <span><%= @item.items_description %></span>
     </div>
