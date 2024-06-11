@@ -1,11 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe OrderForm, type: :model do
-  describe '商品購入機能' do
-    before do 
-      @order_form = FactoryBot.build(:order_form)
-    end
+  before do 
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @order_form = FactoryBot.build(:order_form, user_id: user.id, item_id: item.id)
+  end
 
+  describe '商品購入機能' do
+    context '商品購入できるとき' do
+      it 'すべての項目があれば購入できる' do
+        expect(@order_form).to be_valid
+      end
+    end  
     context '商品購入できないとき' do
       it 'post_codeが空ではできない' do
         @order_form.post_code = ''
