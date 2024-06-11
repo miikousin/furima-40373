@@ -31,7 +31,7 @@ const elements = payjp.elements();
   });
 };
 window.addEventListener("turbo:load", pay);
-
+window.addEventListener("turbo:render", pay)
   
 
 

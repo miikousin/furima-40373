@@ -12,6 +12,11 @@ RSpec.describe OrderForm, type: :model do
       it 'すべての項目があれば購入できる' do
         expect(@order_form).to be_valid
       end
+
+      it 'building_nameが空でも購入できる' do
+        @order_form.building_name = ''
+        expect(@order_form).to be_valid
+      end
     end  
     context '商品購入できないとき' do
       it 'post_codeが空ではできない' do
@@ -33,7 +38,7 @@ RSpec.describe OrderForm, type: :model do
       end
 
       it 'region_idが空ではできない' do
-        @order_form.region_id = ''
+        @order_form.region_id = 1
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include("Region を選択してください")
       end
@@ -78,6 +83,18 @@ RSpec.describe OrderForm, type: :model do
         @order_form.tel = '１１１－１１１１－１１１１'
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include("Tel はハイフンなし10桁か11桁で入力して下さい")
+      end
+
+      it 'user_idが空では購入できない' do 
+        @order_form.user_id = ""  
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空では購入できない' do
+        @order_form.item_id = ""  
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
