@@ -21,7 +21,7 @@ class OrderForm
     #購入履歴を保存。orderでpurchase_idを使うので代入しておく。
     purchase = Purchase.create!(item_id: item_id, user_id: user_id)
     #配送先情報を保存
-    Order.create!(post_code: post_code, region_id: region_id, city: city, house_number: house_number, building_name: building_name, tel: tel, purchase_id: purchase.id, user_id: user_id, item_id: item_id)
+    Order.create!(post_code: post_code, region_id: region_id, city: city, house_number: house_number, building_name: building_name, tel: tel, purchase_id: purchase.id)
     
   end
 end
